@@ -32,15 +32,16 @@ class Gizmo
 	end
 	
 	-- Draw a circle
-	function DrawCircle(self, Cframe: CFrame, Radius: number, Sides: number): ()
+	function DrawCircle(self, Cframe: CFrame, Width: number, Sides: number): ()
 		if Sides < 3 then return end
 		
+		local radius = Width / 2
 		local points = table.create(Sides)
 		
 		for index = 0, Sides - 1 do
 			
 			local theta = (index / Sides) * math.pi * 2
-			local point = Vector3.new(math.cos(theta) * Radius, math.sin(theta) * Radius, 0)
+			local point = Vector3.new(math.cos(theta) * radius, math.sin(theta) * radius, 0)
 			points[index + 1] = Cframe:PointToWorldSpace(point)
 		end
 		
@@ -48,15 +49,16 @@ class Gizmo
 	end
 	
 	-- Draws a semi circle
-	function DrawSemiCircle(self, Cframe: CFrame, Radius: number, Sides: number, Connected: boolean?): ()
+	function DrawSemiCircle(self, Cframe: CFrame, Width: number, Sides: number, Connected: boolean?): ()
 		if Sides < 2 then return end
 		
+		local radius = Width / 2
 		local points = table.create(Sides + 1)
 		
 		for index = 0, Sides do
 
 			local theta = (index / Sides) * math.pi
-			local point = Vector3.new(math.cos(theta) * Radius, math.sin(theta) * Radius, 0)
+			local point = Vector3.new(math.cos(theta) * radius, math.sin(theta) * radius, 0)
 			points[index + 1] = Cframe:PointToWorldSpace(point)
 		end
 		
@@ -67,35 +69,40 @@ class Gizmo
 	end
 	
 	-- Draws a sphere
-	function DrawSphere(self, Cframe: CFrame, Radius: number, Sides: number): ()
-		self:DrawCircle(Cframe, Radius, Sides)
-		self:DrawCircle(Cframe * CFrame.Angles(0, math.rad(90), 0), Radius, Sides)
-		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Radius, Sides)
+	function DrawSphere(self, Cframe: CFrame, Width: number, Sides: number): ()
+		
+		self:DrawCircle(Cframe, Width, Sides)
+		self:DrawCircle(Cframe * CFrame.Angles(0, math.rad(90), 0), Width, Sides)
+		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Width, Sides)
 	end
 	
 	-- Draws a hemisphere
-	function DrawHemiSphere(self, Cframe: CFrame, Radius: number, Sides: number, Connected: boolean?): ()
-		self:DrawSemiCircle(Cframe, Radius, Sides / 2)
-		self:DrawSemiCircle(Cframe * CFrame.Angles(0, math.rad(90), 0), Radius, Sides / 2)
+	function DrawHemiSphere(self, Cframe: CFrame, Width: number, Sides: number, Connected: boolean?): ()
+		
+		self:DrawSemiCircle(Cframe, Width, Sides / 2)
+		self:DrawSemiCircle(Cframe * CFrame.Angles(0, math.rad(90), 0), Width, Sides / 2)
 		
 		if not Connected then return end
-		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Radius, Sides)
+		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Width, Sides)
 	end
 	
 	-- Draws a capsule
-	function DrawCapsule(self, Cframe: CFrame, Radius: number, Height: number): ()
+	function DrawCapsule(self, Cframe: CFrame, Width: number, Height: number): ()
 		
-		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Radius, 32)
-		self:DrawCircle(Cframe * CFrame.new(0, Height / 2, 0) * CFrame.Angles(math.rad(90), 0, 0), Radius, 32)
-		self:DrawCircle(Cframe * CFrame.new(0, -Height / 2, 0) * CFrame.Angles(math.rad(90), 0, 0), Radius, 32)
+		local radius = Width / 2
+		local height = Height / 2
 		
-		self:DrawHemiSphere(Cframe * CFrame.new(0, Height / 2, 0), Radius, 32, true)
-		self:DrawHemiSphere(Cframe * CFrame.new(0, -Height / 2, 0) * CFrame.Angles(math.rad(180), 0, 0), Radius, 32, true)
+		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Width, 32)
+		self:DrawCircle(Cframe * CFrame.new(0, height, 0) * CFrame.Angles(math.rad(90), 0, 0), Width, 32)
+		self:DrawCircle(Cframe * CFrame.new(0, -height, 0) * CFrame.Angles(math.rad(90), 0, 0), Width, 32)
 		
-		self._wireframe:AddLine(Cframe * CFrame.new(Radius, Height / 2, 0).Position, Cframe * CFrame.new(Radius, -Height / 2, 0).Position)
-		self._wireframe:AddLine(Cframe * CFrame.new(-Radius, Height / 2, 0).Position, Cframe * CFrame.new(-Radius, -Height / 2, 0).Position)
-		self._wireframe:AddLine(Cframe * CFrame.new(0, Height / 2, Radius).Position, Cframe * CFrame.new(0, -Height / 2, Radius).Position)
-		self._wireframe:AddLine(Cframe * CFrame.new(0, Height / 2, -Radius).Position, Cframe * CFrame.new(0, -Height / 2, -Radius).Position)
+		self:DrawHemiSphere(Cframe * CFrame.new(0, height, 0), Width, 32, true)
+		self:DrawHemiSphere(Cframe * CFrame.new(0, -height, 0) * CFrame.Angles(math.rad(180), 0, 0), Width, 32, true)
+		
+		self._wireframe:AddLine(Cframe * CFrame.new(radius, Height / 2, 0).Position, Cframe * CFrame.new(radius, -height, 0).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(-radius, Height / 2, 0).Position, Cframe * CFrame.new(-radius, -height, 0).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(0, height, radius).Position, Cframe * CFrame.new(0, -height, radius).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(0, height, -radius).Position, Cframe * CFrame.new(0, -height, -radius).Position)
 	end
 	
 	-- Draw a line
@@ -232,17 +239,20 @@ class Gizmo
 	end
 	
 	-- Draws a star
-	function DrawStar(self, Cframe: CFrame, Radius: number, InnerRadius: number, Points: number): ()
+	function DrawStar(self, Cframe: CFrame, Width: number, InnerWidth: number, Points: number): ()
 		if Points < 2 then return end
+	
+		local radius = Width / 2
+		local innerRadius = InnerWidth / 2
 		
 		local vertices = table.create(Points * 2)
 		
 		for index = 0, Points * 2 - 1 do
 			
 			local theta = (index / (Points * 2)) * math.pi * 2
-			local radius = (index % 2 == 0) and Radius or InnerRadius
+			local radius2 = (index % 2 == 0) and radius or innerRadius
 
-			vertices[index + 1] = Cframe:PointToWorldSpace(Vector3.new(math.cos(theta) * radius, 0,math.sin(theta) * radius))
+			vertices[index + 1] = Cframe:PointToWorldSpace(Vector3.new(math.cos(theta) * radius2, 0,math.sin(theta) * radius2))
 		end
 		
 		for index = 1, #vertices do
