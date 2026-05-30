@@ -93,16 +93,14 @@ class Gizmo
 		local height = Height / 2
 		
 		self:DrawCircle(Cframe * CFrame.Angles(math.rad(90), 0, 0), Width, 32)
-		self:DrawCircle(Cframe * CFrame.new(0, height, 0) * CFrame.Angles(math.rad(90), 0, 0), Width, 32)
-		self:DrawCircle(Cframe * CFrame.new(0, -height, 0) * CFrame.Angles(math.rad(90), 0, 0), Width, 32)
 		
-		self:DrawHemiSphere(Cframe * CFrame.new(0, height, 0), Width, 32, true)
-		self:DrawHemiSphere(Cframe * CFrame.new(0, -height, 0) * CFrame.Angles(math.rad(180), 0, 0), Width, 32, true)
+		self:DrawHemiSphere(Cframe * CFrame.new(0, height - radius, 0), Width, 32, true)
+		self:DrawHemiSphere(Cframe * CFrame.new(0, -height + radius, 0) * CFrame.Angles(math.rad(180), 0, 0), Width, 32, true)
 		
-		self._wireframe:AddLine(Cframe * CFrame.new(radius, Height / 2, 0).Position, Cframe * CFrame.new(radius, -height, 0).Position)
-		self._wireframe:AddLine(Cframe * CFrame.new(-radius, Height / 2, 0).Position, Cframe * CFrame.new(-radius, -height, 0).Position)
-		self._wireframe:AddLine(Cframe * CFrame.new(0, height, radius).Position, Cframe * CFrame.new(0, -height, radius).Position)
-		self._wireframe:AddLine(Cframe * CFrame.new(0, height, -radius).Position, Cframe * CFrame.new(0, -height, -radius).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(radius, height - radius, 0).Position, Cframe * CFrame.new(radius, -height + radius, 0).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(-radius, height - radius, 0).Position, Cframe * CFrame.new(-radius, -height + radius, 0).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(0, height - radius, radius).Position, Cframe * CFrame.new(0, -height + radius, radius).Position)
+		self._wireframe:AddLine(Cframe * CFrame.new(0, height - radius, -radius).Position, Cframe * CFrame.new(0, -height + radius, -radius).Position)
 	end
 	
 	-- Draw a line
