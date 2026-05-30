@@ -198,7 +198,7 @@ class Gizmo
 		
 		self._wireframe:AddLine(Origin, endPoint)
 		
-		self:DrawPyramid(CFrame.new(Origin, Origin + forward) * CFrame.Angles(math.rad(180), 0, 0), HeadWidth, HeadWidth, 5)
+		self:DrawPyramid(CFrame.new(endPoint, Origin) * CFrame.Angles(math.rad(180), 0, 0), HeadWidth, HeadWidth, 5)
 	end
 	
 	-- Draws a point
