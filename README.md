@@ -24,23 +24,30 @@ A Roblox Gizmos module designed for debugging
 
 ```lua
 
-local gizmo = Gizmo.new()
+local Collisions = require(path.to.module)
 
-gizmo:DrawSphere(
-	CFrame.new(0, 5, 0),
-	5,
-	32
+-- Vertex positions
+local pointA: number
+local pointB: number
+local pointC: number
+
+local capsulePosition: Vector3
+local capsuleRadius = 1.5 / 2
+local capsuleHeight = 4.2 / 2
+
+local colliderMin = position - Vector3.new(capsuleRadius, capsuleHeight, capsuleRadius)
+local colliderMax = position + Vector3.new(capsuleRadius, capsuleHeight, capsuleRadius)
+
+local normal = Collisions.PointsToNormal(pointA, pointB, pointC)
+local minBounds, maxBounds = Collisions.PointsToBounds(pointA, pointB, pointC)
+
+local intersecting = Collisions.AABBToAABB(colliderMin, colliderMax, minBounds, maxBounds)
+if intersecting then return end
+
+local hitPosition, hitNormal, Depth = Collisions.CapsuleToTriangle(
+	capsulePosition + Vector3.new(0, capsuleHeight, 0),
+	capsulePosition - Vector3.new(0, capsuleHeight, 0),
+	capsuleRadius, pointA, pointB, pointC
 )
 
-gizmo:DrawRay(
-	Vector3.zero,
-	Vector3.yAxis,
-	10,
-	1
-)
-
-gizmo:DrawText(
-	Vector3.new(0, 10, 0),
-	1,
-	"Hello World"
-)
+print(hitPosition, hitNormal, Depth)
