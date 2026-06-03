@@ -2,7 +2,7 @@
 
 A Roblox Gizmos module designed for debugging
 
-## Functions
+## Draw functions
 
 - DrawCircle
 - DrawSemiCircle
@@ -28,10 +28,14 @@ A Roblox Gizmos module designed for debugging
 - DrawPath
 - DrawBezierCurve
 
+## Visual functions
+
 - SetColor
 - SetThickness
 - SetTransparency
 - SetEnabled
+
+## Misc funcion
 
 - Clear
 - Destroy
