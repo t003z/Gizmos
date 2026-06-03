@@ -2,23 +2,39 @@
 
 A Roblox Gizmos module designed for debugging
 
-## Features
+## Functions
 
-- Circles
-- Semi Circles
-- Spheres
-- Hemispheres
-- Capsules
-- Lines
-- Triangles
-- Cubes
-- Squares
-- Pyramids
-- Rays / Arrows
-- Points
-- CFrame Axes
-- Stars
-- Text
+- DrawCircle
+- DrawSemiCircle
+- DrawSphere
+- DrawHemisphere
+- DrawTorus
+- DrawCapsule
+- DrawCone
+- DrawStar
+- DrawTriangle
+- DrawQuad
+- DrawNgon
+- DrawCube
+- DrawSquare
+- DrawLine
+- DrawPoint
+- DrawText
+- DrawArrow
+- DrawCFrame
+- DrawArc
+- DrawMesh
+- DrawImage
+- DrawPath
+- DrawBezierCurve
+
+- SetColor
+- SetThickness
+- SetTransparency
+- SetEnabled
+
+- Clear
+- Destroy
 
 ## Usage
 
