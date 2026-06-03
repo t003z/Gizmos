@@ -44,23 +44,23 @@ A Roblox Gizmos module designed for debugging
 
 ```lua
 
-local gizmo = Gizmo.new()
+gizmo:DrawStar(CFrame.new(0, 10, 0), 3, 1, 5)
+gizmo:DrawCapsule(CFrame.new(0, 10, 0), 1, 2)
+gizmo:DrawCFrame(CFrame.new(0, 10, 0), 0.5)
 
-gizmo:DrawSphere(
-	CFrame.new(0, 5, 0),
-	5,
-	32
-)
+gizmo:DrawNgon({
+	Vector3.new(-2, 1, 0),
+	Vector3.new(0, 1, 0),
+	Vector3.new(0, 2, 0),
+	Vector3.new(2, 0, 0),
+	Vector3.new(0, -2, 0),
+	Vector3.new(0, -1, 0),
+	Vector3.new(-2, -1, 0)
+})
 
-gizmo:DrawRay(
-	Vector3.zero,
-	Vector3.yAxis,
-	10,
-	1
-)
-
-gizmo:DrawText(
-	Vector3.new(0, 10, 0),
-	1,
-	"Hello World"
-)
+gizmo:DrawBezierCurve({
+	Vector3.new(-5, 0, -3),
+	Vector3.new(-2, 6, 3),
+	Vector3.new(2, -6, -3),
+	Vector3.new(5, 0, 3)
+})
