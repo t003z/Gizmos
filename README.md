@@ -35,7 +35,7 @@ A Roblox Gizmos module designed for debugging
 - SetTransparency
 - SetEnabled
 
-## Misc funcion
+## Misc functions
 
 - Clear
 - Destroy
