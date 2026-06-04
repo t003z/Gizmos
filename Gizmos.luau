@@ -3,7 +3,7 @@
 --!native
 
 -- Author: t003z
--- Gizmos.luau
+-- Module.luau
 
 -- DEFAULTS
 const THICKNESS = 2
@@ -591,6 +591,9 @@ class Object
 	end
 	
 	function Clear(self): ()
+		self.Wireframe.Transparency = TRANSPARENCY
+		self.Wireframe.Thickness = THICKNESS
+		self.Wireframe.Color3 = COLOR
 		self.Wireframe:Clear()
 	end
 	
